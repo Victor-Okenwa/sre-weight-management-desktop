@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { appearanceOptions } from '@weight/shared/constants/index';
 import { Monitor, Moon, Sun } from 'lucide-react';
 import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, type Resolver } from 'react-hook-form';
 import { toast } from 'sonner';
 import z from 'zod';
 import { FieldLabelWithInfo } from '@/components/serial-config-help';
@@ -21,13 +21,8 @@ const preferencesSchema = z.object({
   ticketPrefix: z
     .string()
     .min(1, 'Ticket prefix is required')
-    .max(3, 'You cannot go beyond 3 letters')
-    .default('SRE'),
-  ticketFooter: z
-    .string()
-    .trim()
-    .min(1, 'Ticket footer is required')
-    .default('Thank you for your custom.'),
+    .max(3, 'You cannot go beyond 3 letters'),
+  ticketFooter: z.string().trim().min(1, 'Ticket footer is required'),
 });
 
 type Preferences = z.infer<typeof preferencesSchema>;
@@ -45,7 +40,7 @@ export function PreferencesTab() {
   const [pendingTheme, setPendingTheme] = useState<Theme | null>(null);
 
   const form = useForm<Preferences>({
-    resolver: zodResolver(preferencesSchema),
+    resolver: zodResolver(preferencesSchema) as Resolver<Preferences>,
     defaultValues: {
       defaultUnit: 'kg',
       ticketPrefix: settings?.ticketPrefix ?? 'SRE',

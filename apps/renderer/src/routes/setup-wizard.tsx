@@ -4,7 +4,7 @@ import { createFileRoute, useRouter } from '@tanstack/react-router';
 import type { BaudRate, DataBits, SerialPortInfo, StopBits } from '@weight/shared/types/index';
 import { ArrowLeft, ArrowRight, Check, KeyRound, Settings2Icon } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { FormProvider, useForm, useWatch } from 'react-hook-form';
+import { FormProvider, useForm, useWatch, type Resolver } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
 import { CompanyDetailsStep } from '@/components/setup/company-details-step';
@@ -48,27 +48,19 @@ export const hardwareSchema = z.object({
   baudRate: z.string().min(1, 'Baud rate is required'),
   parity: z.enum(['none', 'even', 'odd', 'mark', 'space']),
   flowControl: z.enum(['none', 'xon/xoff', 'hardware']),
-  stopBits: z
-    .number()
-    .int()
-    .positive()
-    .refine((v) => v === 1 || v === 2, {
-      message: 'Stop bits must be 1 or 2',
-    }),
-  dataBits: z
-    .number()
-    .int()
-    .positive()
-    .refine((v) => [5, 6, 7, 8].includes(v), {
-      message: 'Data bits must be 5, 6, 7, or 8',
-    }),
+  stopBits: z.union([z.literal(1), z.literal(2)], {
+    message: 'Stop bits must be 1 or 2',
+  }),
+  dataBits: z.union([z.literal(5), z.literal(6), z.literal(7), z.literal(8)], {
+    message: 'Data bits must be 5, 6, 7, or 8',
+  }),
   autoOpen: z.boolean(),
   indicator: z.string().min(1, 'Indicator is required'),
-  stableTolerance: z.coerce
+  stableTolerance: z
     .number({ message: 'Tolerance is required' })
     .min(0, 'Tolerance cannot be negative')
     .max(100, 'Tolerance is too large'),
-  stableDurationMs: z.coerce
+  stableDurationMs: z
     .number({ message: 'Duration is required' })
     .int('Duration must be a whole number')
     .min(100, 'Duration must be at least 100 ms')
@@ -83,13 +75,8 @@ export const preferencesSchema = z.object({
   ticketPrefix: z
     .string()
     .min(1, 'Ticket prefix is required')
-    .max(3, 'You cannot go beyond 3 letters')
-    .default('SRE'),
-  ticketFooter: z
-    .string()
-    .trim()
-    .min(1, 'Ticket footer is required')
-    .default('Thank you for your custom.'),
+    .max(3, 'You cannot go beyond 3 letters'),
+  ticketFooter: z.string().trim().min(1, 'Ticket footer is required'),
 });
 
 export type Preferences = z.infer<typeof preferencesSchema>;
@@ -239,7 +226,7 @@ function RouteComponent() {
   const currentStep = steps[stepIndex];
 
   const form = useForm<FormSchemaType>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema) as Resolver<FormSchemaType>,
     defaultValues: {
       softwareUnlock: {
         licenseJson: '',

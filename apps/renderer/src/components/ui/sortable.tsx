@@ -130,7 +130,10 @@ function Sortable<T>(props: SortableProps<T>) {
       coordinateGetter: sortableKeyboardCoordinates,
     }),
   );
-  const config = React.useMemo(() => orientationConfig[orientation], [orientation]);
+  const config = React.useMemo(
+    () => orientationConfig[orientation as keyof typeof orientationConfig],
+    [orientation],
+  );
 
   const getItemValue = React.useCallback(
     (item: T): UniqueIdentifier => {

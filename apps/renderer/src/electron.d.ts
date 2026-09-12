@@ -60,7 +60,7 @@ declare global {
 
       onWeightUpdate: (callback: (reading: WeightReading) => void) => () => void;
 
-      onSerialStatus: (callback: (status: string) => void) => () => void;
+      onSerialStatus: (callback: (status: SerialStatus) => void) => () => void;
       getSerialStatus: () => Promise<SerialStatus>;
 
       log: (level: string, message: string) => void;

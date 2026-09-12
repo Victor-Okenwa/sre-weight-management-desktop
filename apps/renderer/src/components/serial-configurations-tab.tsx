@@ -3,7 +3,7 @@ import { BAUD_RATES, FLOW_CONTROL_OPTIONS, PARITY_FLAGS } from '@weight/shared/c
 import type { BaudRate, DataBits, SerialPortInfo } from '@weight/shared/types/index';
 import { EthernetPortIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, type Resolver } from 'react-hook-form';
 import { toast } from 'sonner';
 import { FieldInfoTooltip, FieldLabelWithInfo, SerialConfigHint } from '@/components/serial-config-help';
 import { Button } from '@/components/ui/button';
@@ -35,14 +35,16 @@ export function SerialConfigurationsTab() {
   const { settings } = useSettingsStore();
   const [currentPort, setCurrentPort] = useState(getPortNumber(String(settings?.serialPort)));
   const form = useForm<Hardware>({
-    resolver: zodResolver(hardwareSchema),
+    resolver: zodResolver(hardwareSchema) as Resolver<Hardware>,
     defaultValues: {
       port: settings?.serialPort,
       flowControl: settings?.flowControl || 'none',
-      stopBits: settings?.stopBits || 1,
+      stopBits: (settings?.stopBits === 2 ? 2 : 1) as Hardware['stopBits'],
       baudRate: '2400',
       parity: settings?.parity || 'none',
-      dataBits: Number(settings?.parity) || 8,
+      dataBits: ([5, 6, 7, 8].includes(Number(settings?.dataBits))
+        ? Number(settings?.dataBits)
+        : 8) as Hardware['dataBits'],
       autoOpen: settings?.autoOpen || false,
       indicator: settings?.indicatorType.toLowerCase() || '',
       stableTolerance: settings?.stableTolerance ?? 0.5,
