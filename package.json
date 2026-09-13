@@ -29,8 +29,5 @@
   "devDependencies": {
     "@biomejs/biome": "^2.4.15",
     "turbo": "^2.9.12"
-  },
-  "dependencies": {
-    "electron-log": "^5.4.4"
   }
 }
