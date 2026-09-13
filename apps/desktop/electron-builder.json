@@ -17,6 +17,12 @@
     }
   ],
   "asar": true,
+  "extraResources": [
+    {
+      "from": "../../packages/database/drizzle",
+      "to": "migrations"
+    }
+  ],
   "icon": "assets/icon.ico",
   "win": {
     "target": [
@@ -27,7 +33,7 @@
     ],
     "icon": "assets/icon.ico",
     "artifactName": "${productName}-${version}-Setup.${ext}",
-    "signAndEditExecutable": false
+    "signAndEditExecutable": true
   },
   "nsis": {
     "oneClick": false,
