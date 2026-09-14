@@ -17,7 +17,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { logger } from '@/lib/logger';
-import { cn, getTicketPrefix } from '@/lib/utils';
+import { cn, formValueToSerialPort, getTicketPrefix, serialPortToFormValue } from '@/lib/utils';
 
 export const Route = createFileRoute('/setup-wizard')({
   component: RouteComponent,
@@ -43,8 +43,7 @@ export type CompanyDetails = z.infer<typeof companyDetailsSchema>;
 export const hardwareSchema = z.object({
   port: z
     .string({ message: 'Field is required' })
-    .regex(/^\d+$/, 'Port should only contain numbers')
-    .transform((val) => (val ? `COM${val}` : val)),
+    .regex(/^\d+$/, 'Port should only contain numbers'),
   baudRate: z.string().min(1, 'Baud rate is required'),
   parity: z.enum(['none', 'even', 'odd', 'mark', 'space']),
   flowControl: z.enum(['none', 'xon/xoff', 'hardware']),
@@ -209,13 +208,6 @@ const steps = [
     fields: [] as const,
   },
 ] as const;
-
-function serialPortToFormValue(serialPort: string | undefined): string {
-  if (!serialPort) return '3';
-  const match = /^COM(\d+)$/i.exec(serialPort.trim());
-  if (match?.[1]) return match[1];
-  return serialPort.replace(/^COM/i, '') || '3';
-}
 
 function RouteComponent() {
   const [stepIndex, setStepIndex] = useState(0);
@@ -445,9 +437,6 @@ function RouteComponent() {
     try {
       const existing = await window.electronAPI.getAllSettings();
       const prefix = data.preferences.ticketPrefix || getTicketPrefix(data.companyDetails.name);
-      const portValue = data.hardware.port.startsWith('COM')
-        ? data.hardware.port
-        : `COM${data.hardware.port}`;
 
       await window.electronAPI.updateSettings({
         companyName: data.companyDetails.name.toLowerCase(),
@@ -458,7 +447,7 @@ function RouteComponent() {
         ticketPrefix: prefix,
         ticketFooter: data.preferences.ticketFooter ?? 'Thank you for your custom',
         nextTicketNumber: existing?.nextTicketNumber ?? 1,
-        serialPort: portValue,
+        serialPort: formValueToSerialPort(data.hardware.port),
         baudRate: Number(data.hardware.baudRate) as unknown as BaudRate,
         dataBits: data.hardware.dataBits as unknown as DataBits,
         parity: data.hardware.parity,

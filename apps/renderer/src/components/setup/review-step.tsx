@@ -1,4 +1,5 @@
 import { useFormContext, useWatch } from 'react-hook-form';
+import { formValueToSerialPort } from '@/lib/utils';
 import { formatLicenseExpiry } from './license-expiry';
 
 type ReviewFormValues = {
@@ -109,7 +110,7 @@ export function ReviewStep() {
           <dl className="space-y-2 text-sm">
             <div className="flex justify-between gap-3">
               <dt className="text-muted-foreground">Port</dt>
-              <dd className="font-medium font-mono">{port ? `COM${port}` : '—'}</dd>
+              <dd className="font-medium font-mono">{port ? formValueToSerialPort(port) : '—'}</dd>
             </div>
             <div className="flex justify-between gap-3">
               <dt className="text-muted-foreground">Baud</dt>

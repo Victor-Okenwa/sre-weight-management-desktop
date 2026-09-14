@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { BAUD_RATES, FLOW_CONTROL_OPTIONS, PARITY_FLAGS } from '@weight/shared/constants/index';
-import type { BaudRate, DataBits, SerialPortInfo } from '@weight/shared/types/index';
+import type { BaudRate, DataBits, SerialPortInfo, SettingsRow } from '@weight/shared/types/index';
 import { EthernetPortIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Controller, useForm, type Resolver } from 'react-hook-form';
@@ -26,47 +26,53 @@ import {
 } from '@/components/ui/select';
 import { Spinner } from '@/components/ui/spinner';
 import { logger } from '@/lib/logger';
-import { getPortNumber } from '@/lib/utils';
+import { formValueToSerialPort, serialPortToFormValue } from '@/lib/utils';
 import { useSettingsStore } from '@/store/settingsStore';
 import { type Hardware, hardwareSchema } from '../routes/setup-wizard';
+
+function hardwareDefaultsFromSettings(settings: SettingsRow | null): Hardware {
+  return {
+    port: serialPortToFormValue(settings?.serialPort),
+    flowControl: settings?.flowControl || 'none',
+    stopBits: (settings?.stopBits === 2 ? 2 : 1) as Hardware['stopBits'],
+    baudRate: String(settings?.baudRate ?? 2400),
+    parity: settings?.parity || 'none',
+    dataBits: ([5, 6, 7, 8].includes(Number(settings?.dataBits))
+      ? Number(settings?.dataBits)
+      : 8) as Hardware['dataBits'],
+    autoOpen: settings?.autoOpen ?? false,
+    indicator: settings?.indicatorType?.toLowerCase() || '',
+    stableTolerance: settings?.stableTolerance ?? 0.5,
+    stableDurationMs: settings?.stableDurationMs ?? 3000,
+  };
+}
 
 export function SerialConfigurationsTab() {
   const [ports, setPorts] = useState<SerialPortInfo[]>([]);
   const { settings } = useSettingsStore();
-  const [currentPort, setCurrentPort] = useState(getPortNumber(String(settings?.serialPort)));
   const form = useForm<Hardware>({
     resolver: zodResolver(hardwareSchema) as Resolver<Hardware>,
-    defaultValues: {
-      port: settings?.serialPort,
-      flowControl: settings?.flowControl || 'none',
-      stopBits: (settings?.stopBits === 2 ? 2 : 1) as Hardware['stopBits'],
-      baudRate: '2400',
-      parity: settings?.parity || 'none',
-      dataBits: ([5, 6, 7, 8].includes(Number(settings?.dataBits))
-        ? Number(settings?.dataBits)
-        : 8) as Hardware['dataBits'],
-      autoOpen: settings?.autoOpen || false,
-      indicator: settings?.indicatorType.toLowerCase() || '',
-      stableTolerance: settings?.stableTolerance ?? 0.5,
-      stableDurationMs: settings?.stableDurationMs ?? 3000,
-    },
+    defaultValues: hardwareDefaultsFromSettings(settings),
   });
 
   useEffect(() => {
-    async function fetchPorts() {
-      const ports = await window.electronAPI.listSerialPorts();
-      setPorts(ports);
+    if (!settings) return;
+    form.reset(hardwareDefaultsFromSettings(settings));
+  }, [form, settings]);
 
-      setCurrentPort(getPortNumber(String(settings?.serialPort)));
+  useEffect(() => {
+    async function fetchPorts() {
+      const listed = await window.electronAPI.listSerialPorts();
+      setPorts(listed);
     }
 
-    fetchPorts();
-  }, [settings?.serialPort]);
+    void fetchPorts();
+  }, []);
 
   async function onSubmit(data: Hardware) {
     try {
       await window.electronAPI.updateSettings({
-        serialPort: data.port,
+        serialPort: formValueToSerialPort(data.port),
         baudRate: Number(data.baudRate) as unknown as BaudRate,
         parity: data.parity,
         flowControl: data.flowControl,
@@ -98,7 +104,6 @@ export function SerialConfigurationsTab() {
 
             <Controller
               name="port"
-              defaultValue={currentPort.toString()}
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
@@ -137,7 +142,16 @@ export function SerialConfigurationsTab() {
                     Port
                   </FieldLabelWithInfo>
                   <InputGroup className="min-h-12!">
-                    <InputGroupInput {...field} type="number" id="port" placeholder="3" />
+                    <InputGroupInput
+                      {...field}
+                      value={field.value == null || field.value === '' ? '' : String(field.value)}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      type="number"
+                      inputMode="numeric"
+                      min={1}
+                      id="port"
+                      placeholder="3"
+                    />
                     <InputGroupAddon>COM</InputGroupAddon>
                     <Popover>
                       <PopoverTrigger asChild>
@@ -153,23 +167,21 @@ export function SerialConfigurationsTab() {
                               <Button
                                 type="button"
                                 variant={
-                                  String(port.path).replace('COM', '') === String(field.value)
+                                  serialPortToFormValue(port.path, '') === String(field.value ?? '')
                                     ? 'secondary'
                                     : 'outline'
                                 }
                                 key={port.path ?? idx}
                                 className={`flex cursor-pointer justify-between gap-1 rounded-lg border p-2 text-left transition ${
-                                  String(port.path).replace('COM', '') === String(field.value)
+                                  serialPortToFormValue(port.path, '') === String(field.value ?? '')
                                     ? 'border-primary bg-primary/10'
                                     : 'border-border'
                                 }`}
                                 onClick={() => {
-                                  const match = /COM(\d+)/i.exec(port.path || '');
-                                  if (match?.[1]) {
-                                    form.setValue('port', match[1]);
-                                  } else if (typeof port.path === 'string') {
-                                    form.setValue('port', port.path);
-                                  }
+                                  form.setValue('port', serialPortToFormValue(port.path), {
+                                    shouldDirty: true,
+                                    shouldValidate: true,
+                                  });
                                 }}
                               >
                                 <span className="font-mono text-sm font-medium">{port.path}</span>
@@ -196,7 +208,6 @@ export function SerialConfigurationsTab() {
 
             <Controller
               name="baudRate"
-              defaultValue={String(settings?.baudRate)}
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field orientation="responsive" data-invalid={fieldState.invalid}>
@@ -214,9 +225,8 @@ export function SerialConfigurationsTab() {
                   </FieldContent>
                   <Select
                     name={field.name}
-                    value={field.value}
-                    defaultValue={String(settings?.baudRate)}
-                    onValueChange={field.onChange}
+                    value={String(field.value ?? '')}
+                    onValueChange={(val) => field.onChange(String(val))}
                   >
                     <SelectTrigger
                       id="baudRate"

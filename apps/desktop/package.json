@@ -5,6 +5,7 @@
   "description": "",
   "main": "dist/main.js",
   "type": "module",
+  "publisher": "Victor Okenwa",
   "scripts": {
     "clean": "rimraf dist release",
     "inject-token": "node scripts/inject-update-token.mjs",

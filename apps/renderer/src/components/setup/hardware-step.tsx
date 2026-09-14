@@ -24,6 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { serialPortToFormValue } from '@/lib/utils';
 import { RequiredLabel, requiredFields } from './required-label';
 
 type HardwareFields = {
@@ -53,12 +54,10 @@ export function HardwareStep({ ports }: HardwareStepProps) {
   const { control, setValue } = useFormContext<HardwareFields>();
 
   function selectPort(path: string | undefined) {
-    const match = /COM(\d+)/i.exec(path || '');
-    if (match?.[1]) {
-      setValue('hardware.port', match[1]);
-    } else if (typeof path === 'string') {
-      setValue('hardware.port', path);
-    }
+    setValue('hardware.port', serialPortToFormValue(path), {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
   }
 
   return (
@@ -110,9 +109,12 @@ export function HardwareStep({ ports }: HardwareStepProps) {
             </FieldLabelWithInfo>
             <InputGroup className="min-h-12!">
               <InputGroupInput
-                defaultValue={3}
                 {...field}
+                value={field.value == null || field.value === '' ? '' : String(field.value)}
+                onChange={(e) => field.onChange(e.target.value)}
                 type="number"
+                inputMode="numeric"
+                min={1}
                 id="hardware-port"
                 placeholder="3"
               />
@@ -131,13 +133,13 @@ export function HardwareStep({ ports }: HardwareStepProps) {
                         <Button
                           type="button"
                           variant={
-                            String(port.path).replace('COM', '') === String(field.value)
+                            serialPortToFormValue(port.path, '') === String(field.value ?? '')
                               ? 'secondary'
                               : 'outline'
                           }
                           key={port.path ?? idx}
                           className={`flex cursor-pointer justify-between gap-1 rounded-lg border p-2 text-left transition ${
-                            String(port.path).replace('COM', '') === String(field.value)
+                            serialPortToFormValue(port.path, '') === String(field.value ?? '')
                               ? 'border-primary bg-primary/10'
                               : 'border-border'
                           }`}
