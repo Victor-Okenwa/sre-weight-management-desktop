@@ -40,7 +40,7 @@
     "@types/node": "^24.12.3",
     "concurrently": "^9.2.1",
     "electron": "^42.0.1",
-    "electron-builder": "^26.8.1",
+    "electron-builder": "^26.11.1",
     "electronmon": "^2.0.4",
     "rimraf": "^6.1.3",
     "tsx": "^4.21.0",
