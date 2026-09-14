@@ -2,7 +2,7 @@
   "name": "@weight/desktop",
   "private": true,
   "version": "1.0.0",
-  "description": "",
+  "description": "Weight Management System for weigh bridge workstations",
   "main": "dist/main.js",
   "type": "module",
   "publisher": "Victor Okenwa",
