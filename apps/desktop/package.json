@@ -1,7 +1,7 @@
 {
   "name": "@weight/desktop",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Weight Management System for weigh bridge workstations",
   "main": "dist/main.js",
   "type": "module",
@@ -13,8 +13,8 @@
     "watch": "tsc --watch",
     "electron": "electron .",
     "dev": "rimraf dist && concurrently \"pnpm watch\" \"wait-on dist/main.js && electronmon .\"",
-    "dist": "pnpm inject-token && pnpm build && electron-builder --win --publish never",
-    "release": "pnpm inject-token && pnpm build && electron-builder --win --publish always"
+    "dist": "pnpm inject-token && pnpm build && node scripts/wrap-electron-builder.mjs --win --publish never",
+    "release": "pnpm inject-token && pnpm build && node scripts/wrap-electron-builder.mjs --win --publish always"
   },
   "keywords": [],
   "author": "",

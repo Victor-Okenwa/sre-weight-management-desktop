@@ -1,6 +1,6 @@
 # Windows release & auto-update
 
-App version comes from [`package.json`](./package.json) (`1.0.0` initially). `electron-updater` reads GitHub Releases for `Victor-Okenwa/weight-management-desktop` (private).
+App version comes from [`package.json`](./package.json) (`1.1.0` currently). `electron-updater` reads GitHub Releases for `Victor-Okenwa/weight-management-desktop` (private).
 
 ## Tokens
 
