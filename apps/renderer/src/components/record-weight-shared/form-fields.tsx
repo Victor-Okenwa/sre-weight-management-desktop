@@ -82,6 +82,36 @@ export function FormFields({
         />
       </Field>
       <Controller
+        name="supplierName"
+        control={control}
+        render={({ field }) => (
+          <Field>
+            <FieldLabel htmlFor="weight-supplier">Supplier</FieldLabel>
+            <Input
+              {...field}
+              id="weight-supplier"
+              placeholder="Supplier name (optional)"
+              disabled={disabled}
+            />
+          </Field>
+        )}
+      />
+      <Controller
+        name="customerName"
+        control={control}
+        render={({ field }) => (
+          <Field>
+            <FieldLabel htmlFor="weight-customer">Customer</FieldLabel>
+            <Input
+              {...field}
+              id="weight-customer"
+              placeholder="Customer name (optional)"
+              disabled={disabled}
+            />
+          </Field>
+        )}
+      />
+      <Controller
         name="remark"
         control={control}
         render={({ field }) => (

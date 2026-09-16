@@ -123,6 +123,18 @@ export function createRecordsColumns(actions: RecordsColumnActions): ColumnDef<W
       meta: { label: 'Operator' },
     },
     {
+      accessorKey: 'supplierName',
+      header: ({ column }) => <DataTableColumnHeader column={column} label="Supplier" />,
+      cell: ({ row }) => row.original.supplierName ?? '--',
+      meta: { label: 'Supplier' },
+    },
+    {
+      accessorKey: 'customerName',
+      header: ({ column }) => <DataTableColumnHeader column={column} label="Customer" />,
+      cell: ({ row }) => row.original.customerName ?? '--',
+      meta: { label: 'Customer' },
+    },
+    {
       accessorKey: 'createdAt',
       header: ({ column }) => <DataTableColumnHeader column={column} label="Created" />,
       cell: ({ row }) => formatDate(row.original.createdAt),

@@ -148,6 +148,8 @@ export interface Record {
   materialId: number | null;
   vehicleName: string | null;
   materialName: string | null;
+  supplierName: string | null;
+  customerName: string | null;
   remark: string | null;
   createdAt: string;
   updatedAt: string;

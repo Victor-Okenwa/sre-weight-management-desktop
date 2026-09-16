@@ -38,6 +38,8 @@ export interface CreateRecordInput {
   status?: 'pending' | 'completed';
   vehicleName?: string | null;
   materialName?: string | null;
+  supplierName?: string | null;
+  customerName?: string | null;
   remark?: string | null;
   vehicleTareWeight?: number | null;
   vehicleTareUnit?: string | null;
@@ -74,6 +76,8 @@ export function createRecord(db: DatabaseInstance, data: CreateRecordInput): Rec
       status: data.status || 'pending',
       vehicleId,
       materialId,
+      supplierName: data.supplierName ?? null,
+      customerName: data.customerName ?? null,
       remark: data.remark ?? null,
       createdAt: timestamp,
       updatedAt: timestamp,
@@ -93,6 +97,8 @@ export interface UpdateRecordInput {
   status?: 'pending' | 'completed';
   vehicleName?: string | null;
   materialName?: string | null;
+  supplierName?: string | null;
+  customerName?: string | null;
   remark?: string | null;
   vehicleTareWeight?: number | null;
   vehicleTareUnit?: string | null;
@@ -147,6 +153,8 @@ const recordSelect = {
   status: records.status,
   vehicleId: records.vehicleId,
   materialId: records.materialId,
+  supplierName: records.supplierName,
+  customerName: records.customerName,
   remark: records.remark,
   createdAt: records.createdAt,
   updatedAt: records.updatedAt,
@@ -223,7 +231,7 @@ function buildRecordFilterConditions(filters?: RecordFilters) {
   }
   if (filters?.search) {
     conditions.push(
-      sql`(${records.ticketId} LIKE ${`%${filters.search}%`} OR ${records.operator} LIKE ${`%${filters.search}%`} OR ${vehicles.name} LIKE ${`%${filters.search}%`} OR ${materials.name} LIKE ${`%${filters.search}%`})`,
+      sql`(${records.ticketId} LIKE ${`%${filters.search}%`} OR ${records.operator} LIKE ${`%${filters.search}%`} OR ${records.supplierName} LIKE ${`%${filters.search}%`} OR ${records.customerName} LIKE ${`%${filters.search}%`} OR ${vehicles.name} LIKE ${`%${filters.search}%`} OR ${materials.name} LIKE ${`%${filters.search}%`})`,
     );
   }
   if (filters?.startDate) {

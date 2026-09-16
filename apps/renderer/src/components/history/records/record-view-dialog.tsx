@@ -77,6 +77,8 @@ export function RecordViewDialog({
             <DetailRow label="Tare" value={formatWeight(record.tareWeight)} />
             <DetailRow label="Net" value={formatWeight(record.netWeight)} />
             <DetailRow label="Operator" value={record.operator ?? '--'} />
+            <DetailRow label="Supplier" value={record.supplierName ?? '--'} />
+            <DetailRow label="Customer" value={record.customerName ?? '--'} />
             <DetailRow label="Remark" value={record.remark ?? '--'} />
             <DetailRow label="Created" value={formatDate(record.createdAt)} />
             <DetailRow label="Updated" value={formatDate(record.updatedAt)} />

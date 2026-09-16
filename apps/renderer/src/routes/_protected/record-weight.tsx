@@ -59,6 +59,8 @@ function RouteComponent() {
       vehicleName: '',
       materialName: '',
       operator: '',
+      supplierName: '',
+      customerName: '',
       remark: '',
     },
   });
@@ -204,6 +206,8 @@ function RouteComponent() {
         vehicleName: values.vehicleName || undefined,
         materialName: values.materialName || undefined,
         operator: values.operator || undefined,
+        supplierName: values.supplierName || undefined,
+        customerName: values.customerName || undefined,
         remark: values.remark || undefined,
         status,
       };

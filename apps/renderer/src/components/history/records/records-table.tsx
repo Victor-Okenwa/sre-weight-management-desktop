@@ -101,7 +101,7 @@ export function RecordsTable() {
         isInitialLoading={isInitialLoading}
         columnCount={columns.length}
         entityName="record"
-        searchPlaceholder="Search ticket, operator, vehicle..."
+        searchPlaceholder="Search ticket, operator, vehicle, supplier, customer..."
         onSearch={setSearch}
         onDelete={deleteRecords}
         onDeleted={refetch}

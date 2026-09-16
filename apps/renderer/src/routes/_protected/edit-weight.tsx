@@ -52,6 +52,8 @@ function EditWeightPage() {
       vehicleName: '',
       materialName: '',
       operator: '',
+      supplierName: '',
+      customerName: '',
       remark: '',
     },
   });
@@ -112,6 +114,8 @@ function EditWeightPage() {
           vehicleName: found.vehicleName ?? '',
           materialName: found.materialName ?? '',
           operator: found.operator ?? '',
+          supplierName: found.supplierName ?? '',
+          customerName: found.customerName ?? '',
           remark: found.remark ?? '',
         });
       } catch {
@@ -155,6 +159,8 @@ function EditWeightPage() {
         operator: values.operator || null,
         vehicleName: values.vehicleName,
         materialName: values.materialName || null,
+        supplierName: values.supplierName || null,
+        customerName: values.customerName || null,
         remark: values.remark || null,
         grossWeight: capturedGrossWeight,
         netWeight: capturedGrossWeight - tareWeight,

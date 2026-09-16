@@ -35,17 +35,20 @@ function pageCss(paperSize: PaperSizeGroup): string {
       return `
         @page { size: 58mm auto; margin: 2mm; }
         body { width: 48mm; font-size: 11px; }
+        .signature-line { height: 22px; }
       `;
     case 'A4':
       return `
         @page { size: A4; margin: 12mm; }
         body { width: 100%; max-width: 180mm; font-size: 14px; margin: 0 auto; }
+        .signature-line { height: 48px; }
       `;
     case '80mm':
     default:
       return `
         @page { size: 80mm auto; margin: 2mm; }
         body { width: 72mm; font-size: 12px; }
+        .signature-line { height: 32px; }
       `;
   }
 }
@@ -108,6 +111,23 @@ export function buildSlipHtml(
       margin-top: 10px;
       font-size: 0.9em;
     }
+    .signature {
+      margin-top: 14px;
+    }
+    .signature-caption {
+      font-size: 0.85em;
+      color: #444;
+    }
+    .signature-name {
+      font-weight: 600;
+      margin-top: 2px;
+      font-size: 0.9em;
+    }
+    .signature-line {
+      border-bottom: 1px solid #111;
+      height: 28px;
+      margin-top: 6px;
+    }
   </style>
 </head>
 <body>
@@ -124,6 +144,8 @@ export function buildSlipHtml(
   <div class="row"><span class="label">Vehicle</span><span class="value">${escapeHtml(record.vehicleName ?? '--')}</span></div>
   <div class="row"><span class="label">Material</span><span class="value">${escapeHtml(record.materialName ?? '--')}</span></div>
   <div class="row"><span class="label">Operator</span><span class="value">${escapeHtml(record.operator ?? '--')}</span></div>
+  ${record.supplierName ? `<div class="row"><span class="label">Supplier</span><span class="value">${escapeHtml(record.supplierName)}</span></div>` : ''}
+  ${record.customerName ? `<div class="row"><span class="label">Customer</span><span class="value">${escapeHtml(record.customerName)}</span></div>` : ''}
   <div class="line"></div>
   <div class="weights">
     <div class="row"><span class="label">Gross</span><span class="value">${formatWeight(record.grossWeight, unit)}</span></div>
@@ -135,6 +157,11 @@ export function buildSlipHtml(
   <div class="row"><span class="label">Updated</span><span class="value">${formatDateTime(record.updatedAt)}</span></div>
   ${record.remark ? `<div class="row"><span class="label">Remark</span><span class="value">${escapeHtml(record.remark)}</span></div>` : ''}
   ${footer ? `<div class="footer">${footer}</div>` : ''}
+  <div class="signature">
+    <div class="signature-caption">Operator signature</div>
+    ${record.operator ? `<div class="signature-name">${escapeHtml(record.operator)}</div>` : ''}
+    <div class="signature-line"></div>
+  </div>
 </body>
 </html>`;
 }

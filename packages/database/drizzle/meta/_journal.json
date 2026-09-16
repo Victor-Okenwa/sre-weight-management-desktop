@@ -57,6 +57,13 @@
       "when": 1784450000000,
       "tag": "0007_print_settings_rename",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1789612800000,
+      "tag": "0008_records_supplier_customer",
+      "breakpoints": true
     }
   ]
 }

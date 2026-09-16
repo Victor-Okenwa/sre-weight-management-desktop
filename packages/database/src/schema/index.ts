@@ -79,6 +79,8 @@ export const records = sqliteTable(
       .default('pending'),
     vehicleId: integer('vehicle_id').references(() => vehicles.id, { onDelete: 'set null' }),
     materialId: integer('material_id').references(() => materials.id, { onDelete: 'set null' }),
+    supplierName: text('supplier_name'),
+    customerName: text('customer_name'),
     remark: text('remark'),
     createdAt: text('created_at').notNull(),
     updatedAt: text('updated_at').notNull(),

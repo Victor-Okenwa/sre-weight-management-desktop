@@ -6,6 +6,8 @@ export const newWeightSchema = z.object({
   vehicleName: z.string().min(1, 'Vehicle number is required'),
   materialName: z.string().optional(),
   operator: z.string().optional(),
+  supplierName: z.string().optional(),
+  customerName: z.string().optional(),
   remark: z.string().optional(),
 });
 
