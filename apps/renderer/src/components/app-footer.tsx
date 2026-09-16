@@ -47,10 +47,9 @@ export function AppFooter() {
         <p className="min-w-0 truncate">
           <span className="text-foreground/80">Solution Road</span>
           {version ? (
-            <>
-              <span className="mx-1.5 text-border">|</span>
-              <span className="font-mono text-foreground/70">v{version}</span>
-            </>
+            <span className="ml-2 inline-flex items-center rounded-md border border-border bg-background/70 px-2 py-0.5 font-mono text-foreground/80">
+              v{version}
+            </span>
           ) : null}
           {status?.machineId ? (
             <>
