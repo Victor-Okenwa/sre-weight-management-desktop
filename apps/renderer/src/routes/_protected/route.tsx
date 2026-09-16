@@ -16,6 +16,7 @@ import { useEffect } from 'react';
 import { toast } from 'sonner';
 
 import { AppFooter } from '@/components/app-footer';
+import { WmsLogo } from '@/components/wms-logo';
 import { NotFound } from '@/components/not-found';
 import { type Theme, useTheme } from '@/components/providers/theme-provider';
 import {
@@ -212,8 +213,8 @@ function AppSidebar({ settings }: { settings: SettingsRow | null }) {
     <Sidebar className="border-r border-sidebar-border/60">
       <SidebarHeader className="border-b border-sidebar-border/60 px-3 py-4">
         <div className="flex items-center gap-3">
-          <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-sidebar-primary/30 bg-sidebar-primary/10 shadow-[0_0_20px_-8px] shadow-sidebar-primary/30">
-            <Weight className="size-5 text-sidebar-primary" />
+          <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-sky-400/45 bg-sky-400/15 shadow-[0_0_20px_-8px] shadow-sky-400/50">
+            <WmsLogo className="size-6 text-sky-400" />
           </div>
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold tracking-wide">WMS</p>
