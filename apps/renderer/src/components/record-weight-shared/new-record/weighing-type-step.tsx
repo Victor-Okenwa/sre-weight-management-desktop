@@ -22,12 +22,12 @@ export function WeighingTypeStep({
         <Label
           className={cn(
             'flex cursor-pointer flex-col items-center gap-4 rounded-lg border-2 p-8 transition-all',
-            value === 'single' && 'border-primary bg-primary/5',
+            value === 'single' && 'border-heading/45 bg-heading/15 text-heading',
             value !== 'single' && 'border-border hover:border-muted-foreground/30',
           )}
         >
           <RadioGroupItem value="single" className="sr-only" />
-          <Weight className="size-10 text-muted-foreground" />
+          <Weight className={cn('size-10', value === 'single' ? 'text-heading' : 'text-muted-foreground')} />
           <div className="text-center">
             <p className="text-base font-semibold">Single Weighing</p>
             <p className="mt-1 text-sm text-muted-foreground">
@@ -39,12 +39,12 @@ export function WeighingTypeStep({
         <Label
           className={cn(
             'flex cursor-pointer flex-col items-center gap-4 rounded-lg border-2 p-8 transition-all',
-            value === 'double' && 'border-primary bg-primary/5',
+            value === 'double' && 'border-heading/45 bg-heading/15 text-heading',
             value !== 'double' && 'border-border hover:border-muted-foreground/30',
           )}
         >
           <RadioGroupItem value="double" className="sr-only" />
-          <Scale className="size-10 text-muted-foreground" />
+          <Scale className={cn('size-10', value === 'double' ? 'text-heading' : 'text-muted-foreground')} />
           <div className="text-center">
             <p className="text-base font-semibold">Double Weighing</p>
             <p className="mt-1 text-sm text-muted-foreground">Full gross / tare / net workflow</p>

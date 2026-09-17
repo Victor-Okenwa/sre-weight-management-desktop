@@ -27,9 +27,9 @@ const tabsListVariants = cva(
     'data-[variant=line]:rounded-none data-[variant=line]:bg-transparent data-[variant=line]:p-0',
     // Futuristic glass panel highlight
     'before:pointer-events-none before:absolute before:inset-x-6 before:top-0 before:z-10 before:h-px',
-    'before:bg-gradient-to-r before:from-transparent before:via-primary/25 before:to-transparent',
+    'before:bg-gradient-to-r before:from-transparent before:via-heading/25 before:to-transparent',
     'after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:opacity-50',
-    'after:bg-[radial-gradient(ellipse_at_50%_0%,color-mix(in_oklch,var(--primary)_8%,transparent),transparent_70%)]',
+    'after:bg-[radial-gradient(ellipse_at_50%_0%,color-mix(in_oklch,var(--heading)_8%,transparent),transparent_70%)]',
   ],
   {
     variants: {
@@ -82,25 +82,25 @@ function TabsTrigger({ className, ...props }: React.ComponentProps<typeof TabsPr
           'has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2',
           '[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4',
           // Active glow pill (default variant)
-          'group-data-[variant=default]/tabs-list:data-[state=active]:border-primary/20',
-          'group-data-[variant=default]/tabs-list:data-[state=active]:bg-primary/10',
-          'group-data-[variant=default]/tabs-list:data-[state=active]:text-primary',
-          'group-data-[variant=default]/tabs-list:data-[state=active]:shadow-[0_0_24px_-10px] group-data-[variant=default]/tabs-list:data-[state=active]:shadow-primary/50',
+          'group-data-[variant=default]/tabs-list:data-[state=active]:border-heading/20',
+          'group-data-[variant=default]/tabs-list:data-[state=active]:bg-heading/10',
+          'group-data-[variant=default]/tabs-list:data-[state=active]:text-heading',
+          'group-data-[variant=default]/tabs-list:data-[state=active]:shadow-[0_0_24px_-10px] group-data-[variant=default]/tabs-list:data-[state=active]:shadow-heading/50',
           // Line variant
           'group-data-[variant=line]/tabs-list:rounded-none group-data-[variant=line]/tabs-list:bg-transparent',
           'group-data-[variant=line]/tabs-list:px-4 group-data-[variant=line]/tabs-list:pb-3 group-data-[variant=line]/tabs-list:shadow-none',
-          'group-data-[variant=line]/tabs-list:data-[state=active]:bg-transparent group-data-[variant=line]/tabs-list:data-[state=active]:text-primary',
+          'group-data-[variant=line]/tabs-list:data-[state=active]:bg-transparent group-data-[variant=line]/tabs-list:data-[state=active]:text-heading',
           // Active indicator bar
           'after:absolute after:opacity-0 after:transition-all after:duration-300 after:ease-out',
           'group-data-horizontal/tabs:after:inset-x-3 group-data-horizontal/tabs:after:bottom-0 group-data-horizontal/tabs:after:h-px',
           'group-data-vertical/tabs:after:inset-y-2 group-data-vertical/tabs:after:-right-0.5 group-data-vertical/tabs:after:w-px',
           'group-data-[variant=default]/tabs-list:data-[state=active]:after:opacity-100',
-          'group-data-[variant=default]/tabs-list:data-[state=active]:after:bg-primary',
-          'group-data-[variant=default]/tabs-list:data-[state=active]:after:shadow-[0_0_10px_2px] group-data-[variant=default]/tabs-list:data-[state=active]:after:shadow-primary/40',
+          'group-data-[variant=default]/tabs-list:data-[state=active]:after:bg-heading',
+          'group-data-[variant=default]/tabs-list:data-[state=active]:after:shadow-[0_0_10px_2px] group-data-[variant=default]/tabs-list:data-[state=active]:after:shadow-heading/40',
           'group-data-[variant=line]/tabs-list:after:bottom-[-1px] group-data-[variant=line]/tabs-list:after:inset-x-0',
           'group-data-[variant=line]/tabs-list:after:h-0.5 group-data-[variant=line]/tabs-list:data-[state=active]:after:opacity-100',
-          'group-data-[variant=line]/tabs-list:data-[state=active]:after:bg-primary',
-          'group-data-[variant=line]/tabs-list:data-[state=active]:after:shadow-[0_0_12px_2px] group-data-[variant=line]/tabs-list:data-[state=active]:after:shadow-primary/50',
+          'group-data-[variant=line]/tabs-list:data-[state=active]:after:bg-heading',
+          'group-data-[variant=line]/tabs-list:data-[state=active]:after:shadow-[0_0_12px_2px] group-data-[variant=line]/tabs-list:data-[state=active]:after:shadow-heading/50',
         ],
         className,
       )}

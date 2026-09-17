@@ -35,7 +35,7 @@ export function VehicleSelectionStep({
         <Label
           className={cn(
             'flex cursor-pointer items-center gap-4 rounded-lg border-2 p-5 transition-all',
-            tareSource === 'new' && 'border-primary bg-primary/5',
+            tareSource === 'new' && 'border-heading/45 bg-heading/15 text-heading',
             tareSource !== 'new' && 'border-border hover:border-muted-foreground/30',
           )}
         >
@@ -49,7 +49,7 @@ export function VehicleSelectionStep({
         <Label
           className={cn(
             'flex cursor-pointer items-center gap-4 rounded-lg border-2 p-5 transition-all',
-            tareSource === 'existing' && 'border-primary bg-primary/5',
+            tareSource === 'existing' && 'border-heading/45 bg-heading/15 text-heading',
             tareSource !== 'existing' && 'border-border hover:border-muted-foreground/30',
           )}
         >

@@ -268,10 +268,10 @@ function AppSidebar({ settings }: { settings: SettingsRow | null }) {
             className={cn(
               'flex w-full max-w-full items-center gap-3 rounded-xl border border-sidebar-border/60',
               'bg-sidebar-accent/40 p-2.5 text-left transition-colors',
-              'hover:border-sidebar-primary/25 hover:bg-sidebar-accent/70',
+              'hover:border-heading/25 hover:bg-sidebar-accent/70',
             )}
           >
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-sidebar-primary/20 bg-sidebar-primary/10 text-sm font-bold capitalize text-sidebar-primary shadow-[0_0_16px_-8px] shadow-sidebar-primary/50">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-heading/30 bg-heading/10 text-sm font-bold capitalize text-heading shadow-[0_0_16px_-8px] shadow-heading/50">
               {companyInitial}
             </span>
 
@@ -279,7 +279,7 @@ function AppSidebar({ settings }: { settings: SettingsRow | null }) {
               <span className="block truncate text-sm font-medium capitalize">
                 {settings?.companyName?.trim() || 'Company'}
               </span>
-              <p className="truncate text-xs text-muted-foreground">
+              <p className="truncate text-xs text-heading/80">
                 {settings?.companyEmail?.trim() || 'View company details'}
               </p>
             </div>

@@ -103,10 +103,11 @@ export function PreferencesTab() {
                   type="button"
                   disabled={isThemeLoading}
                   onClick={() => handleThemeChange(theme.value)}
-                  variant={isActive ? 'default' : 'outline'}
+                  variant="outline"
                   className={cn(
                     'h-auto flex-col items-start justify-start gap-2 px-4 py-4 text-left whitespace-normal',
-                    isActive && 'ring-1 ring-primary/40',
+                    isActive &&
+                      'border-heading/45 bg-heading/15 text-heading ring-1 ring-heading/40 hover:bg-heading/20 hover:text-heading',
                   )}
                 >
                   <div className="flex w-full items-center gap-2">
@@ -120,7 +121,7 @@ export function PreferencesTab() {
                   <p
                     className={cn(
                       'text-xs font-normal leading-relaxed',
-                      isActive ? 'text-primary-foreground/80' : 'text-muted-foreground',
+                      isActive ? 'text-heading/80' : 'text-muted-foreground',
                     )}
                   >
                     {theme.description}
