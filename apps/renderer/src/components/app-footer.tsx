@@ -45,9 +45,9 @@ export function AppFooter() {
     <footer className="border-t bg-muted/20 px-3 py-1.5 h-40">
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-[11px] leading-tight text-muted-foreground">
         <p className="min-w-0 truncate">
-          <span className="text-foreground/80">Solution Road</span>
+          <span className="text-heading">Solution Road</span>
           {version ? (
-            <span className="ml-2 inline-flex items-center rounded-md border border-border bg-background/70 px-2 py-0.5 font-mono text-foreground/80">
+            <span className="ml-2 inline-flex items-center rounded-md border border-heading bg-background/70 px-2 py-0.5 font-mono text-foreground/80">
               v{version}
             </span>
           ) : null}
