@@ -144,13 +144,21 @@ function RouteComponent() {
   const { setTheme } = useTheme();
 
   useEffect(() => {
+    let cancelled = false;
+
     async function fetchSettings() {
       await loadSettings();
+      if (cancelled) return;
 
-      setTheme(settings?.theme as Theme);
+      const nextTheme = useSettingsStore.getState().settings?.theme as Theme | undefined;
+      if (nextTheme) setTheme(nextTheme);
     }
-    fetchSettings();
-  }, [loadSettings, setTheme, settings?.theme]);
+
+    void fetchSettings();
+    return () => {
+      cancelled = true;
+    };
+  }, [loadSettings, setTheme]);
 
   return (
     <SidebarProvider>

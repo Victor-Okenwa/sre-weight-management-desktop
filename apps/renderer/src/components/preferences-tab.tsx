@@ -34,8 +34,8 @@ const themeIcons = {
 } as const;
 
 export function PreferencesTab() {
-  const { settings } = useSettingsStore();
-  const { setTheme } = useTheme();
+  const { settings, loadSettings } = useSettingsStore();
+  const { theme: selectedTheme, setTheme } = useTheme();
   const [isThemeLoading, setIsThemeLoading] = useState(false);
   const [pendingTheme, setPendingTheme] = useState<Theme | null>(null);
 
@@ -49,17 +49,19 @@ export function PreferencesTab() {
   });
 
   async function handleThemeChange(theme: Theme) {
+    const previousTheme = selectedTheme;
     setIsThemeLoading(true);
     setPendingTheme(theme);
+    setTheme(theme);
 
     try {
       await window.electronAPI.updateSettings({
         theme,
       });
-
+      await loadSettings();
       toast.success('Theme updated');
-      setTheme(theme);
     } catch (error) {
+      setTheme(previousTheme);
       toast.error((error as Error).message || 'Failed to update theme');
     } finally {
       setIsThemeLoading(false);
@@ -94,7 +96,7 @@ export function PreferencesTab() {
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             {appearanceOptions.map((theme) => {
               const Icon = themeIcons[theme.value as keyof typeof themeIcons] ?? Monitor;
-              const isActive = settings?.theme === theme.value.toLowerCase();
+              const isActive = (pendingTheme ?? selectedTheme) === theme.value;
               const isPending = isThemeLoading && pendingTheme === theme.value;
 
               return (

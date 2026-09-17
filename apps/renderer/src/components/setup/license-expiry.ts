@@ -11,28 +11,37 @@ export function parseLicenseExpiresAt(licenseJson: string): string | null {
   return null;
 }
 
-/** Human-readable license expiry, e.g. "Saturday, 18 July 2026". */
+const time24h: Intl.DateTimeFormatOptions = {
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: false,
+  hourCycle: 'h23',
+};
+
+/** Human-readable license expiry, e.g. "Saturday, 18 July 2026, 14:30". */
 export function formatLicenseExpiry(expiresAt: string | null | undefined): string | null {
   if (!expiresAt) return null;
   const date = new Date(expiresAt);
   if (Number.isNaN(date.getTime())) return null;
-  return date.toLocaleDateString(undefined, {
+  return date.toLocaleString(undefined, {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
     day: 'numeric',
+    ...time24h,
   });
 }
 
-/** Compact date for footers, e.g. "18 Jul 2026". */
+/** Compact date-time for footers, e.g. "18 Jul 2026 14:30". */
 export function formatLicenseDateShort(iso: string | null | undefined): string | null {
   if (!iso) return null;
   const date = new Date(iso);
   if (Number.isNaN(date.getTime())) return null;
-  return date.toLocaleDateString(undefined, {
+  return date.toLocaleString(undefined, {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
+    ...time24h,
   });
 }
 
