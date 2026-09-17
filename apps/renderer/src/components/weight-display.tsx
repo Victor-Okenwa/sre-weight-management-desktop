@@ -44,6 +44,7 @@ export function WeightDisplay() {
       )}
     >
       <header
+        data-tour="live-reading"
         className={cn(panelSectionClassName, 'flex items-center justify-between border-b py-2.5')}
       >
         <p className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">

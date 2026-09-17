@@ -43,6 +43,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
   isSetupCompleted: (): Promise<boolean> => ipcRenderer.invoke('app:is-setup-completed'),
   completeSetup: (settings: Record<string, string>): Promise<boolean> =>
     ipcRenderer.invoke('app:complete-setup', settings),
+  isTourCompleted: (): Promise<boolean> => ipcRenderer.invoke('app:is-tour-completed'),
+  completeTour: (): Promise<boolean> => ipcRenderer.invoke('app:complete-tour'),
 
   getMachineId: (): Promise<string> => ipcRenderer.invoke('license:get-machine-id'),
   activateLicense: (licenseJson: string): Promise<ActivateLicenseResult> =>

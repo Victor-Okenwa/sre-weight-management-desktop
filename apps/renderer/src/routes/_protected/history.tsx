@@ -41,7 +41,7 @@ function RouteComponent() {
           onValueChange={(value) => setTab(value as HistoryTab)}
           className="flex min-w-0 w-full flex-col"
         >
-          <TabsList>
+          <TabsList data-tour="history-tabs">
             <TabsTrigger value="records">Records</TabsTrigger>
             <TabsTrigger value="vehicles">Vehicles</TabsTrigger>
             <TabsTrigger value="materials">Materials</TabsTrigger>

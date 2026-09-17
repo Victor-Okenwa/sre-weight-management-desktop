@@ -17,7 +17,12 @@ import {
   getRecordsPaginated,
   updateRecord,
 } from '@weight/database/repositories/record';
-import { isSetupCompleted, markSetupCompleted } from '@weight/database/repositories/installation';
+import {
+  isSetupCompleted,
+  isTourCompleted,
+  markSetupCompleted,
+  markTourCompleted,
+} from '@weight/database/repositories/installation';
 import { getAllSettings, updateSettings } from '@weight/database/repositories/settings';
 import {
   deleteVehicle,
@@ -187,6 +192,18 @@ export function registerIpcHandlers(serialManager: SerialManager) {
       updateSettings(db, newSettings);
     }
     markSetupCompleted(db);
+    db.save();
+    return true;
+  });
+
+  ipcMain.handle('app:is-tour-completed', () => {
+    const db = getDatabase();
+    return isTourCompleted(db);
+  });
+
+  ipcMain.handle('app:complete-tour', () => {
+    const db = getDatabase();
+    markTourCompleted(db);
     db.save();
     return true;
   });

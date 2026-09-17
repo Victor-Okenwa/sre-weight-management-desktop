@@ -141,7 +141,7 @@ export function SerialConfigurationsTab() {
                   >
                     Port
                   </FieldLabelWithInfo>
-                  <InputGroup className="min-h-12!">
+                  <InputGroup className="min-h-12!" data-tour="serial-port">
                     <InputGroupInput
                       {...field}
                       value={field.value == null || field.value === '' ? '' : String(field.value)}

@@ -2,6 +2,8 @@ import { Check, Copy, MessageCircle, Phone, Route } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
+import { useAppTour } from '@/components/app-tour';
+
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -52,15 +54,22 @@ function CopyContactButton({ value, label }: { value: string; label: string }) {
 }
 
 export function HelpSidebarSection() {
+  const { startTour } = useAppTour();
+
   return (
-    <SidebarGroup>
+    <SidebarGroup data-tour="help">
       <SidebarGroupLabel className="px-2 text-[11px] uppercase tracking-[0.14em] text-muted-foreground/80">
         Help
       </SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu className="gap-1.5">
           <SidebarMenuItem>
-            <SidebarMenuButton type="button" size="lg" className={cn(helpButtonClassName)}>
+            <SidebarMenuButton
+              type="button"
+              size="lg"
+              className={cn(helpButtonClassName)}
+              onClick={startTour}
+            >
               <Route className="size-4" />
               <span>Take a Tour</span>
             </SidebarMenuButton>

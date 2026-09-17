@@ -45,6 +45,8 @@ declare global {
 
       isSetupCompleted: () => Promise<boolean>;
       completeSetup: (settings: Record<string, string>) => Promise<boolean>;
+      isTourCompleted: () => Promise<boolean>;
+      completeTour: () => Promise<boolean>;
 
       getMachineId: () => Promise<string>;
       activateLicense: (licenseJson: string) => Promise<ActivateLicenseResult>;

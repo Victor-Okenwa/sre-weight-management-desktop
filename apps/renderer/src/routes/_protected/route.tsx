@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { toast } from 'sonner';
 
 import { AppFooter } from '@/components/app-footer';
+import { AppTour, useAppTour } from '@/components/app-tour';
 import { HelpSidebarSection } from '@/components/help-sidebar-section';
 import { WmsLogo } from '@/components/wms-logo';
 import { NotFound } from '@/components/not-found';
@@ -164,26 +165,30 @@ function RouteComponent() {
 
   return (
     <SidebarProvider>
-      <AppSidebar settings={settings} />
+      <AppTour>
+        <AppSidebar settings={settings} />
 
-      <div className="min-w-0 w-full flex-1">
-        <main className="min-w-0">
-          <TopBar />
-          <SoftwareUpdateBanner />
-          <RouteContent />
-        </main>
-        <AppFooter />
-      </div>
+        <div className="min-w-0 w-full flex-1">
+          <main className="min-w-0">
+            <TopBar />
+            <SoftwareUpdateBanner />
+            <RouteContent />
+          </main>
+          <AppFooter />
+        </div>
+      </AppTour>
     </SidebarProvider>
   );
 }
 
 function RouteContent() {
   const isNavigating = useIsNavigating();
+  const { open: tourOpen } = useAppTour();
+  const showOverlay = isNavigating && !tourOpen;
 
   return (
     <div className="relative min-w-0">
-      {isNavigating && (
+      {showOverlay && (
         <>
           <div
             aria-hidden
@@ -205,7 +210,7 @@ function RouteContent() {
       <div
         className={cn(
           'min-w-0 transition-opacity duration-200',
-          isNavigating && 'pointer-events-none opacity-60',
+          showOverlay && 'pointer-events-none opacity-60',
         )}
       >
         <Outlet />
@@ -236,7 +241,7 @@ function AppSidebar({ settings }: { settings: SettingsRow | null }) {
       </SidebarHeader>
 
       <SidebarContent className="px-2 py-3">
-        <SidebarGroup>
+        <SidebarGroup data-tour="nav">
           <SidebarGroupLabel className="px-2 text-[11px] uppercase tracking-[0.14em] text-muted-foreground/80">
             Navigation
           </SidebarGroupLabel>
@@ -407,7 +412,10 @@ function TopBar() {
           </div>
         </section>
 
-        <section className="relative z-10 flex flex-wrap items-center justify-end gap-2">
+        <section
+          data-tour="serial-status"
+          className="relative z-10 flex flex-wrap items-center justify-end gap-2"
+        >
           <div className="flex items-center gap-2 rounded-lg border border-border/60 bg-background/30 px-2.5 py-1.5">
             <Tooltip>
               <TooltipTrigger asChild>

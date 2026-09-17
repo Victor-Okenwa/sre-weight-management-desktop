@@ -32,7 +32,7 @@ function RouteComponent() {
 
   return (
     <div className="mx-auto w-full min-w-0 max-w-6xl space-y-6 overflow-x-hidden p-6">
-      <div className="flex items-center gap-3">
+      <div className="flex w-fit items-center gap-3" data-tour="settings-tabs">
         <div className="flex size-12 items-center justify-center rounded-xl border border-heading/30 bg-heading/10 shadow-[0_0_20px_-8px] shadow-heading/30">
           <Settings2 className="size-6 text-heading" />
         </div>
