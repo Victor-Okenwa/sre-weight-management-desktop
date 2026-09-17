@@ -64,7 +64,7 @@ export function RecordViewDialog({
               label="Status"
               value={
                 <Badge
-                  variant={record.status === 'completed' ? 'default' : 'outline'}
+                  variant={record.status === 'completed' ? 'sky' : 'outline'}
                   className="capitalize"
                 >
                   {record.status}

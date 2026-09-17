@@ -69,7 +69,7 @@ export function createRecordsColumns(actions: RecordsColumnActions): ColumnDef<W
       header: ({ column }) => <DataTableColumnHeader column={column} label="Status" />,
       cell: ({ row }) => (
         <Badge
-          variant={row.original.status === 'completed' ? 'default' : 'outline'}
+          variant={row.original.status === 'completed' ? 'sky' : 'outline'}
           className="capitalize"
         >
           {row.original.status}

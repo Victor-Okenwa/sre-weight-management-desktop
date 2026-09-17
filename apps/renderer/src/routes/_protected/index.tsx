@@ -33,8 +33,8 @@ function RouteComponent() {
         <div className={cn(glassSurfaceClassName, 'overflow-hidden')}>
           <div className="relative z-10 flex items-center justify-between gap-3 border-b border-border/50 bg-muted/60 px-4 py-3 shadow-[inset_0_1px_0_0_color-mix(in_oklch,var(--foreground)_8%,transparent)]">
             <div className="flex min-w-0 items-center gap-3">
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-primary/30 bg-primary/10 shadow-[0_0_20px_-8px] shadow-primary/30">
-                <CableIcon className="size-5 text-primary" />
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-heading/30 bg-heading/10 shadow-[0_0_20px_-8px] shadow-heading/30">
+                <CableIcon className="size-5 text-heading" />
               </div>
               <div className="min-w-0">
                 <p className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">

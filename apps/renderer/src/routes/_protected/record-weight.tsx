@@ -309,8 +309,8 @@ function RouteComponent() {
   return (
     <div className="mx-auto max-w-4xl space-y-6 p-6 min-h-screen">
       <div className="flex items-center gap-3">
-        <div className="flex size-12 items-center justify-center rounded-lg bg-primary/10">
-          <Scale className="size-6 text-primary" />
+        <div className="flex size-12 items-center justify-center rounded-lg bg-heading/10">
+          <Scale className="size-6 text-heading" />
         </div>
         <div>
           <h2 className="text-xl font-bold">New Weight Record</h2>

@@ -23,8 +23,8 @@ function RouteComponent() {
     <TooltipProvider>
       <div className="mx-auto w-full min-w-0 max-w-6xl space-y-6 overflow-x-hidden p-6">
         <div className="flex items-center gap-3">
-          <div className="flex size-12 items-center justify-center rounded-lg bg-primary/10">
-            <HistoryIcon className="size-6 text-primary" />
+          <div className="flex size-12 items-center justify-center rounded-lg bg-heading/10">
+            <HistoryIcon className="size-6 text-heading" />
           </div>
           <div>
             <h2 className="text-xl font-bold">History</h2>

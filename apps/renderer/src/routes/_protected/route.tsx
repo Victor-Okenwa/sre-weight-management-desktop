@@ -217,7 +217,7 @@ function AppSidebar({ settings }: { settings: SettingsRow | null }) {
             <WmsLogo className="size-6 text-sky-400" />
           </div>
           <div className="min-w-0">
-            <p className="truncate text-sm font-semibold tracking-wide">WMS</p>
+            <p className="truncate text-sm font-semibold tracking-wide text-heading">WMS</p>
             <p className="truncate text-xs text-muted-foreground">Weight Management</p>
           </div>
         </div>
@@ -388,7 +388,7 @@ function TopBar() {
             <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground/80">
               System
             </p>
-            <p className="truncate text-sm font-semibold tracking-wide">Weight Management</p>
+            <p className="truncate text-sm font-semibold tracking-wide text-heading">Weight Management</p>
           </div>
         </section>
 
