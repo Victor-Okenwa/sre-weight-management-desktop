@@ -5,6 +5,7 @@ import {
   HistoryIcon,
   LayoutDashboard,
   Loader2,
+  RefreshCcwIcon,
   Settings2,
   SignalHighIcon,
   SignalLowIcon,
@@ -12,7 +13,7 @@ import {
   Weight,
   X,
 } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 import { AppFooter } from '@/components/app-footer';
@@ -250,8 +251,9 @@ function AppSidebar({ settings }: { settings: SettingsRow | null }) {
                       size="lg"
                       className={cn(
                         'rounded-lg border border-transparent transition-all duration-200',
+                        'hover:bg-black/10 dark:hover:bg-white/10',
                         isActive &&
-                          'border-sky-400/45 bg-sky-400/15 text-sky-400 shadow-[0_0_20px_-10px] shadow-sky-400/40 data-active:bg-sky-400/15 data-active:text-sky-400 hover:bg-sky-400/20 hover:text-sky-400',
+                        'border-sky-400/45 bg-sky-400/15 text-sky-400 shadow-[0_0_20px_-10px] shadow-sky-400/40 data-active:bg-sky-400/15 data-active:text-sky-400 hover:bg-sky-400/20 hover:text-sky-400',
                       )}
                     >
                       <Link to={link}>
@@ -408,12 +410,12 @@ function TopBar() {
                   className={cn(
                     'flex size-7 items-center justify-center rounded-lg border transition-colors',
                     signalRed &&
-                      'border-destructive/30 bg-destructive/10 shadow-[0_0_12px_-6px] shadow-destructive/50',
+                    'border-destructive/30 bg-destructive/10 shadow-[0_0_12px_-6px] shadow-destructive/50',
                     signalYellow &&
-                      'border-yellow-500/30 bg-yellow-500/10 shadow-[0_0_12px_-6px] shadow-yellow-500/40',
+                    'border-yellow-500/30 bg-yellow-500/10 shadow-[0_0_12px_-6px] shadow-yellow-500/40',
                     !signalRed &&
-                      !signalYellow &&
-                      'border-green-500/30 bg-green-500/10 shadow-[0_0_12px_-6px] shadow-green-500/40',
+                    !signalYellow &&
+                    'border-green-500/30 bg-green-500/10 shadow-[0_0_12px_-6px] shadow-green-500/40',
                   )}
                 >
                   <SignalIcon
@@ -450,7 +452,7 @@ function TopBar() {
             className={cn(
               'h-7 rounded-lg px-2.5 capitalize',
               !signalRed &&
-                'border-primary/20 bg-primary/10 text-primary shadow-[0_0_16px_-8px] shadow-primary/40',
+              'border-primary/20 bg-primary/10 text-primary shadow-[0_0_16px_-8px] shadow-primary/40',
             )}
           >
             {signalLoading && <Loader2 className="animate-spin" />}
@@ -463,7 +465,7 @@ function TopBar() {
               className="h-7 shadow-[0_0_16px_-8px] shadow-primary/40"
               onClick={handleReconnect}
             >
-              Reconnect
+              <RefreshCcwIcon className={cn("size-4", signalLoading && 'animate-spin')} /> {signalLoading ? 'Reconnecting...' : 'Reconnect'}
             </Button>
           )}
         </section>
