@@ -13,7 +13,7 @@ import {
   Weight,
   X,
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { toast } from 'sonner';
 
 import { AppFooter } from '@/components/app-footer';
