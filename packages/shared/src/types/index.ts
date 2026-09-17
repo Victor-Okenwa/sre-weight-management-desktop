@@ -102,6 +102,7 @@ export type PasswordMode = 'none' | 'required';
 export interface InstallationRow {
   id: number;
   setupCompleted: boolean;
+  tourCompleted: boolean;
   machineId: string;
   licenseIssuedAt: string | null;
   licenseExpiresAt: string | null;

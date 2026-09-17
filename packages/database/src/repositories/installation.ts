@@ -18,6 +18,7 @@ export function ensureInstallationRow(db: DatabaseInstance) {
       .values({
         id: 1,
         setupCompleted: false,
+        tourCompleted: false,
         machineId: '',
       })
       .run();
@@ -78,4 +79,13 @@ export function clearLicenseAndPassword(db: DatabaseInstance) {
 export function isSetupCompleted(db: DatabaseInstance): boolean {
   const row = getInstallation(db);
   return row?.setupCompleted === true;
+}
+
+export function isTourCompleted(db: DatabaseInstance): boolean {
+  const row = getInstallation(db);
+  return row?.tourCompleted === true;
+}
+
+export function markTourCompleted(db: DatabaseInstance) {
+  upsertInstallation(db, { tourCompleted: true });
 }

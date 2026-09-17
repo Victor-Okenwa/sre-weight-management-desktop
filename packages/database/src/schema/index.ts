@@ -33,6 +33,8 @@ export const settings = sqliteTable('settings', {
 export const installation = sqliteTable('installation', {
   id: integer('id').primaryKey().default(1),
   setupCompleted: integer('setup_completed', { mode: 'boolean' }).notNull().default(false),
+  /** True after the operator finishes (or skips) the in-app product tour. */
+  tourCompleted: integer('tour_completed', { mode: 'boolean' }).notNull().default(false),
   /** Machine ID this station / license is bound to. */
   machineId: text('machine_id').notNull().default(''),
   licenseIssuedAt: text('license_issued_at'),

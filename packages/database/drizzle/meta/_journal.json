@@ -64,6 +64,13 @@
       "when": 1789612800000,
       "tag": "0008_records_supplier_customer",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1789675200000,
+      "tag": "0009_installation_tour_completed",
+      "breakpoints": true
     }
   ]
 }

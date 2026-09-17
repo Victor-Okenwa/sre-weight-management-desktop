@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { toast } from 'sonner';
 
 import { AppFooter } from '@/components/app-footer';
+import { HelpSidebarSection } from '@/components/help-sidebar-section';
 import { WmsLogo } from '@/components/wms-logo';
 import { NotFound } from '@/components/not-found';
 import { type Theme, useTheme } from '@/components/providers/theme-provider';
@@ -270,6 +271,8 @@ function AppSidebar({ settings }: { settings: SettingsRow | null }) {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        <HelpSidebarSection />
       </SidebarContent>
 
       <SidebarFooter className="border-t border-sidebar-border/60 p-2">
