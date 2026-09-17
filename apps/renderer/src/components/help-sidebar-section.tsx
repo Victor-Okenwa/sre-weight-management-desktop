@@ -23,11 +23,10 @@ import {
 import { cn } from '@/lib/utils';
 
 const WHATSAPP_NUMBER = '+2347084618070';
-const CALL_NUMBER = '09036645619';
+const CALL_NUMBER = '+2349036645619';
 
 const helpButtonClassName = cn(
-  'rounded-lg border border-transparent transition-all duration-200',
-  'hover:bg-black/10 dark:hover:bg-white/10',
+  'rounded-lg border border-transparent transition-all duration-200 cursor-pointer hover:bg-black/10! dark:hover:bg-white/10!',
 );
 
 function CopyContactButton({ value, label }: { value: string; label: string }) {
@@ -61,7 +60,7 @@ export function HelpSidebarSection() {
       <SidebarGroupContent>
         <SidebarMenu className="gap-1.5">
           <SidebarMenuItem>
-            <SidebarMenuButton type="button" size="lg" className={helpButtonClassName}>
+            <SidebarMenuButton type="button" size="lg" className={cn(helpButtonClassName)}>
               <Route className="size-4" />
               <span>Take a Tour</span>
             </SidebarMenuButton>

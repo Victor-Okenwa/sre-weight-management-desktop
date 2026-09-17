@@ -252,7 +252,7 @@ function AppSidebar({ settings }: { settings: SettingsRow | null }) {
                       size="lg"
                       className={cn(
                         'rounded-lg border border-transparent transition-all duration-200',
-                        'hover:bg-black/10 dark:hover:bg-white/10',
+                        'hover:bg-black/10! dark:hover:bg-white/10!',
                         isActive &&
                         'border-sky-400/45 bg-sky-400/15 text-sky-400 shadow-[0_0_20px_-10px] shadow-sky-400/40 data-active:bg-sky-400/15 data-active:text-sky-400 hover:bg-sky-400/20 hover:text-sky-400',
                       )}
