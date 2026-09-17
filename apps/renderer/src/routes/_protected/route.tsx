@@ -222,13 +222,15 @@ function AppSidebar({ settings }: { settings: SettingsRow | null }) {
   return (
     <Sidebar className="border-r border-sidebar-border/60">
       <SidebarHeader className="border-b border-sidebar-border/60 px-3 py-4">
-        <div className="flex items-center gap-3">
+        <div className="flex items-start gap-3">
           <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-sky-400/45 bg-sky-400/15 shadow-[0_0_20px_-8px] shadow-sky-400/50">
             <WmsLogo className="size-6 text-sky-400" />
           </div>
           <div className="min-w-0">
-            <p className="truncate text-sm font-semibold tracking-wide text-heading">WMS</p>
-            <p className="truncate text-xs text-muted-foreground">Weight Management</p>
+            <p className="text-sm font-semibold tracking-wide text-heading">WMWS</p>
+            <p className="text-xs leading-snug text-muted-foreground whitespace-normal">
+              Weight Management Work Station
+            </p>
           </div>
         </div>
       </SidebarHeader>
