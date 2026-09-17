@@ -12,13 +12,12 @@ import { registerIpcHandlers } from './ipc/ipc.js';
 import type { IndicatorType } from './parser/index.js';
 import { SerialManager } from './serial/serial-manager.js';
 import { startAutoUpdater } from './updater/auto-updater.js';
+import { logger } from './logger.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const isDev = !app.isPackaged;
-
-app.setAppUserModelId('com.solutionroad.weightmanagement');
 
 let mainWindow: BrowserWindow | null = null;
 let isCleaningUp = false;
@@ -96,6 +95,7 @@ function cleanupResources(serialManager: SerialManager) {
 }
 
 app.whenReady().then(async () => {
+  logger.info(`userData: ${app.getPath('userData')}`);
   await setupDatabase();
   const db = getDatabase();
 

@@ -2,6 +2,10 @@
   "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
   "appId": "com.solutionroad.weightmanagement",
   "productName": "Solution Road Weight Management",
+  "extraMetadata": {
+    "name": "solution-road-wms",
+    "productName": "Solution Road Weight Management"
+  },
   "copyright": "Copyright © Solution Road",
   "directories": {
     "output": "release",
