@@ -3,7 +3,7 @@ import path from 'node:path';
 import { app } from 'electron';
 import { getMachineId } from '../license/license-service.js';
 import { logger } from '../logger.js';
-import { checkInternetConnectivity } from '../updater/connectivity.js';
+import { checkHostReachable } from '../updater/connectivity.js';
 import { REGISTRY_INGEST_SECRET, REGISTRY_URL } from './registry-config.generated.js';
 
 const REPORT_TIMEOUT_MS = 5_000;
@@ -82,9 +82,9 @@ async function reportInstallation(company: RegistryCompany) {
   }
 
   if (!isLocalRegistry(url)) {
-    const online = await checkInternetConnectivity();
-    if (!online) {
-      logger.info('[registry] skipped: offline');
+    const reachable = await registryHostReachable(url);
+    if (!reachable) {
+      logger.info('[registry] skipped: registry unreachable');
       return;
     }
   }
@@ -132,6 +132,16 @@ function registryUrl() {
 function registrySecret() {
   const fromEnv = app.isPackaged ? '' : (process.env.REGISTRY_INGEST_SECRET ?? '');
   return (fromEnv || REGISTRY_INGEST_SECRET).trim();
+}
+
+async function registryHostReachable(url: string) {
+  try {
+    const parsed = new URL(url);
+    const port = parsed.port ? Number(parsed.port) : parsed.protocol === 'http:' ? 80 : 443;
+    return checkHostReachable(parsed.hostname, port);
+  } catch {
+    return false;
+  }
 }
 
 function isLocalRegistry(url: string) {
