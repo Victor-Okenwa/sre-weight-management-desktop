@@ -117,6 +117,25 @@ declare global {
       previewTicket: (input: PrintPreviewInput) => Promise<PrintPreviewResult>;
       printTicket: (input: PrintTicketInput) => Promise<PrintTicketResult>;
 
+      getRegistryHealth: () => Promise<{
+        ok: boolean;
+        status?: number;
+        body?: unknown;
+        error?: string;
+      }>;
+      getDeviceDetails: () => Promise<{
+        machineId: string;
+        companyName: string;
+        companyAddress: string;
+        companyEmail: string;
+        version: string;
+        previousVersion: string | null;
+        event: string;
+        downloadedAt: string | null;
+        updatedAt: string | null;
+        reportedAt: string;
+      }>;
+
       // Updates
       getAppVersion: () => Promise<string>;
       checkForUpdates: () => Promise<unknown>;

@@ -1,12 +1,14 @@
 import dotenv from 'dotenv';
+import { app, BrowserWindow, screen } from 'electron';
 
-dotenv.config({ path: '.env.local' }); // load local env overrides
+if (!app.isPackaged) {
+  dotenv.config({ path: '.env.local' });
+}
 
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getAllSettings } from '@weight/database/repositories/settings';
 import type { SerialOptions, SettingsRow } from '@weight/shared/types/index';
-import { app, BrowserWindow, screen } from 'electron';
 import { getDatabase, setupDatabase } from './database/connection.js';
 import { registerIpcHandlers } from './ipc/ipc.js';
 import type { IndicatorType } from './parser/index.js';

@@ -10,12 +10,13 @@
     "clean": "rimraf dist release",
     "inject-token": "node scripts/inject-update-token.mjs",
     "inject-registry": "node scripts/inject-registry-config.mjs",
+    "inject-registry:packaged": "node scripts/inject-registry-config.mjs --packaged",
     "build": "pnpm inject-token && pnpm inject-registry && tsc",
     "watch": "tsc --watch",
     "electron": "electron .",
     "dev": "pnpm inject-registry && rimraf dist && concurrently \"pnpm watch\" \"wait-on dist/bootstrap.js && electronmon .\"",
-    "dist": "pnpm inject-token && pnpm inject-registry && pnpm build && node scripts/wrap-electron-builder.mjs --win --publish never",
-    "release": "pnpm inject-token && pnpm inject-registry && pnpm build && node scripts/wrap-electron-builder.mjs --win --publish always"
+    "dist": "pnpm inject-token && pnpm inject-registry:packaged && tsc && node scripts/wrap-electron-builder.mjs --win --publish never",
+    "release": "pnpm inject-token && pnpm inject-registry:packaged && tsc && node scripts/wrap-electron-builder.mjs --win --publish always"
   },
   "keywords": [],
   "author": "",
