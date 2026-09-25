@@ -46,7 +46,7 @@ export function LicenseExpiryNudge() {
   if (!visible) return null;
 
   return (
-    <div>
+    <div className="fixed bottom-4 right-4 z-50">
       <Button
         asChild
         className="bg-red-600 text-white shadow-lg hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600"

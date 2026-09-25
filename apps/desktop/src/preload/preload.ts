@@ -144,25 +144,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   printTicket: (input: PrintTicketInput): Promise<PrintTicketResult> =>
     ipcRenderer.invoke('print:ticket', input),
 
-  getRegistryHealth: (): Promise<{
-    ok: boolean;
-    status?: number;
-    body?: unknown;
-    error?: string;
-  }> => ipcRenderer.invoke('registry:health'),
-  getDeviceDetails: (): Promise<{
-    machineId: string;
-    companyName: string;
-    companyAddress: string;
-    companyEmail: string;
-    version: string;
-    previousVersion: string | null;
-    event: string;
-    downloadedAt: string | null;
-    updatedAt: string | null;
-    reportedAt: string;
-  }> => ipcRenderer.invoke('registry:device-details'),
-
   // Updates
   getAppVersion: (): Promise<string> => ipcRenderer.invoke('update:get-version'),
   checkForUpdates: (): Promise<unknown> => ipcRenderer.invoke('update:check'),

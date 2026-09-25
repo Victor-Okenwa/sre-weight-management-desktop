@@ -40,7 +40,6 @@ import type {
 import { ipcMain } from 'electron';
 import { SerialPort } from 'serialport';
 import { getDatabase } from '../database/connection.js';
-import { fetchRegistryHealth, getDeviceDetails } from '../registry/report.js';
 import {
   changePassword,
   clearLicenseForPasswordReset,
@@ -368,10 +367,6 @@ export function registerIpcHandlers(serialManager: SerialManager) {
   ipcMain.handle('print:preview', (_event, input: PrintPreviewInput) => previewTicket(input));
 
   ipcMain.handle('print:ticket', async (_event, input: PrintTicketInput) => printTicket(input));
-
-  // ---------- Registry (testing) ----------
-  ipcMain.handle('registry:health', () => fetchRegistryHealth());
-  ipcMain.handle('registry:device-details', () => getDeviceDetails());
 
   // ---------- Updates ----------
   ipcMain.handle('update:get-version', () => getAppVersion());

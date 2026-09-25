@@ -1,8 +1,6 @@
 import { mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
-import { getAllSettings } from '@weight/database/repositories/settings';
 import { app } from 'electron';
-import { getDatabase } from '../database/connection.js';
 import { getMachineId } from '../license/license-service.js';
 import { logger } from '../logger.js';
 import { checkInternetConnectivity } from '../updater/connectivity.js';
@@ -41,42 +39,6 @@ export function recordPendingUpdate(pending: PendingUpdate) {
   } catch (error) {
     logger.warn(`[registry] could not record pending update: ${(error as Error).message}`);
   }
-}
-
-export async function fetchRegistryHealth() {
-  const url = registryUrl();
-  if (!url) {
-    return { ok: false, error: 'registry url is not configured' };
-  }
-  try {
-    const response = await fetch(new URL('/health', url), {
-      signal: AbortSignal.timeout(REPORT_TIMEOUT_MS),
-    });
-    const body = (await response.json().catch(() => null)) as unknown;
-    return { ok: response.ok, status: response.status, body };
-  } catch (error) {
-    return { ok: false, error: (error as Error).message };
-  }
-}
-
-export function getDeviceDetails() {
-  const settings = getAllSettings(getDatabase());
-  const version = app.getVersion();
-  const pending = readPendingUpdate();
-  const last = readLastReport();
-  const updated = pending?.toVersion === version;
-  return {
-    machineId: getMachineId(),
-    companyName: settings?.companyName?.trim() ?? '',
-    companyAddress: settings?.companyAddress?.trim() ?? '',
-    companyEmail: settings?.companyEmail?.trim() ?? '',
-    version,
-    previousVersion: updated ? (pending?.fromVersion ?? null) : (last?.version ?? null),
-    event: updated ? 'updated' : 'online',
-    downloadedAt: updated ? (pending?.downloadedAt ?? null) : null,
-    updatedAt: updated ? new Date().toISOString() : null,
-    reportedAt: new Date().toISOString(),
-  };
 }
 
 export function startRegistryReporter(company: RegistryCompany) {

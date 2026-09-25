@@ -86,7 +86,7 @@ export function WeightDisplay() {
       <div className="relative bg-muted/25 px-3 py-3 shadow-[inset_0_6px_18px_rgba(0,0,0,0.22)]">
         <div
           className={cn(
-            'relative min-h-52 overflow-hidden rounded-lg border border-black/50 bg-black px-3 py-5',
+            'relative flex min-h-52 items-center justify-end overflow-hidden rounded-lg border border-black/50 bg-black px-3 py-5',
             'shadow-[inset_0_6px_28px_rgba(0,0,0,0.92),inset_0_-1px_0_rgba(255,255,255,0.06),0_3px_8px_rgba(0,0,0,0.35)]',
           )}
         >
@@ -99,20 +99,13 @@ export function WeightDisplay() {
             className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px)] bg-size-[100%_3px] opacity-25"
           />
 
-          <div
-            aria-hidden
-            className="font-classic absolute inset-0 flex select-none items-center justify-end px-3 text-[4rem] text-red-800/25 tabular-nums"
-          >
-            888888
-          </div>
-
-          <div className="relative flex items-center justify-end">
-            <div
-              className="font-classic text-[4rem] text-red-600 tabular-nums"
-              style={ledGlowStyle}
-            >
+          <div className="font-classic relative grid justify-items-end whitespace-nowrap text-[4rem] leading-none tracking-normal">
+            <span aria-hidden className="col-start-1 row-start-1 select-none text-red-800/25">
+              888888
+            </span>
+            <span className="col-start-1 row-start-1 text-red-600" style={ledGlowStyle}>
               {latestReading?.weight ?? <span className="opacity-30">------</span>}
-            </div>
+            </span>
           </div>
         </div>
       </div>
