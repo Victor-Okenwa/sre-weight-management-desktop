@@ -3,6 +3,7 @@ import type { BrowserWindow } from 'electron';
 import { app } from 'electron';
 import type { AppUpdater } from 'electron-updater';
 import { logger } from '../logger.js';
+import { recordPendingUpdate } from '../registry/report.js';
 import { checkGithubStoreReachable, checkInternetConnectivity } from './connectivity.js';
 import { UPDATE_GITHUB } from './update-config.js';
 import { UPDATE_GH_TOKEN } from './update-token.generated.js';
@@ -84,6 +85,11 @@ export function startAutoUpdater(options: {
   });
 
   autoUpdater.on('update-downloaded', (info) => {
+    recordPendingUpdate({
+      fromVersion: app.getVersion(),
+      toVersion: info.version,
+      downloadedAt: new Date().toISOString(),
+    });
     send({ type: 'downloaded', version: info.version });
   });
 

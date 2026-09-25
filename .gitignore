@@ -119,6 +119,7 @@ Thumbs.db
 app/dist/
 electron-builder-effective-config.yaml
 apps/desktop/src/updater/update-token.generated.ts
+apps/desktop/src/registry/registry-config.generated.ts
 
 # Licensing — never commit private keys or issued customer licenses
 **/private.pem

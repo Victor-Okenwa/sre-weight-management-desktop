@@ -9,12 +9,13 @@
   "scripts": {
     "clean": "rimraf dist release",
     "inject-token": "node scripts/inject-update-token.mjs",
-    "build": "pnpm inject-token && tsc",
+    "inject-registry": "node scripts/inject-registry-config.mjs",
+    "build": "pnpm inject-token && pnpm inject-registry && tsc",
     "watch": "tsc --watch",
     "electron": "electron .",
-    "dev": "rimraf dist && concurrently \"pnpm watch\" \"wait-on dist/bootstrap.js && electronmon .\"",
-    "dist": "pnpm inject-token && pnpm build && node scripts/wrap-electron-builder.mjs --win --publish never",
-    "release": "pnpm inject-token && pnpm build && node scripts/wrap-electron-builder.mjs --win --publish always"
+    "dev": "pnpm inject-registry && rimraf dist && concurrently \"pnpm watch\" \"wait-on dist/bootstrap.js && electronmon .\"",
+    "dist": "pnpm inject-token && pnpm inject-registry && pnpm build && node scripts/wrap-electron-builder.mjs --win --publish never",
+    "release": "pnpm inject-token && pnpm inject-registry && pnpm build && node scripts/wrap-electron-builder.mjs --win --publish always"
   },
   "keywords": [],
   "author": "",
